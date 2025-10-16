@@ -1,14 +1,13 @@
+import { BottomTabBarProps, createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import React from 'react';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { View, StyleSheet } from 'react-native';
-import { BottomTabBarProps } from '@react-navigation/bottom-tabs';
+import { StyleSheet, View } from 'react-native';
 
-import WellnessHomeScreen from '../screens/WellnessHomeScreen';
-import MedicationsScreen from '../screens/MedicationsScreen';
+import SimpleFloatingDockNav from '../components/SimpleFloatingDockNav';
 import CalendarScreen from '../screens/CalendarScreen';
 import CaregiversScreen from '../screens/CaregiversScreen';
+import HomeScreen from '../screens/HomeScreen';
+import MedicationsScreen from '../screens/MedicationsScreen';
 import ProfileScreen from '../screens/ProfileScreen';
-import SimpleFloatingDockNav from '../components/SimpleFloatingDockNav';
 import { MainTabParamList } from '../types/navigation';
 import { WellnessTheme } from '../utils/wellnessTheme';
 
@@ -60,7 +59,7 @@ export default function MainTabNavigator() {
       >
         <Tab.Screen 
           name="Home" 
-          component={WellnessHomeScreen}
+          component={HomeScreen}
         />
         <Tab.Screen 
           name="Medications" 

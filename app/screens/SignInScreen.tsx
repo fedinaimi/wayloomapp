@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
-import { View, Text, StyleSheet, ScrollView, KeyboardAvoidingView, Platform, Image } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { WellnessTheme } from '../utils/wellnessTheme';
-import WellnessInput from '../components/WellnessInput';
+import React, { useState } from 'react';
+import { Image, KeyboardAvoidingView, Platform, ScrollView, StyleSheet, Text, View } from 'react-native';
 import WellnessButton from '../components/WellnessButton';
+import WellnessInput from '../components/WellnessInput';
 import { RootStackParamList } from '../types/navigation';
+import { WellnessTheme } from '../utils/wellnessTheme';
 
 type SignInScreenNavigationProp = StackNavigationProp<RootStackParamList, 'SignIn'>;
 

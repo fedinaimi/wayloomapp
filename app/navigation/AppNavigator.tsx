@@ -4,8 +4,8 @@ import { RootStackParamList } from '../types/navigation';
 import { WellnessTheme } from '../utils/wellnessTheme';
 
 // Auth screens
-import SignInScreen from '../screens/SignInScreen';
 import ConsentScreen from '../screens/ConsentScreen';
+import SignInScreen from '../screens/SignInScreen';
 
 // Main tab navigator
 import MainTabNavigator from './MainTabNavigator';

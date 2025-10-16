@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Image } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { WellnessTheme } from '../utils/wellnessTheme';
+import React, { useState } from 'react';
+import { Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import WellnessButton from '../components/WellnessButton';
 import { RootStackParamList } from '../types/navigation';
+import { WellnessTheme } from '../utils/wellnessTheme';
 
 type ConsentScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Consent'>;
 

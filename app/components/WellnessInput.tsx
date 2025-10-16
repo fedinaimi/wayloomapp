@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, TextInput, StyleSheet, TextInputProps } from 'react-native';
+import { StyleSheet, Text, TextInput, TextInputProps, View } from 'react-native';
 import { WellnessTheme } from '../utils/wellnessTheme';
 
 interface WellnessInputProps extends Omit<TextInputProps, 'style'> {
