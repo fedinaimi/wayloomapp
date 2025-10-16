@@ -1,7 +1,8 @@
 import { Ionicons } from '@expo/vector-icons';
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import {
     Dimensions,
+    FlatList,
     ScrollView,
     StyleSheet,
     Text,
@@ -15,6 +16,8 @@ export default function HomeScreen() {
   const { width: screenWidth } = Dimensions.get('window');
   const [userName] = useState('Amina');
   const [riskStatus] = useState<'stable' | 'watch' | 'consult'>('stable');
+  const [currentAnalyticsIndex, setCurrentAnalyticsIndex] = useState(0);
+  const analyticsRef = useRef<FlatList>(null);
 
   // Get current time for greeting
   const getGreeting = () => {
@@ -66,6 +69,127 @@ export default function HomeScreen() {
     { date: 'Oct 14', score: 82 },
     { date: 'Oct 16', score: 84 },
   ];
+
+  // AI insights for today
+  const todayInsights = [
+    {
+      type: 'positive',
+      icon: 'checkmark-circle',
+      title: 'Great Progress!',
+      message: 'Your attention span has improved by 12% this week. Keep up the mental exercises!',
+      color: '#10B981'
+    },
+    {
+      type: 'tip',
+      icon: 'lightbulb',
+      title: 'Today\'s Tip',
+      message: 'Try the "5-4-3-2-1" grounding technique: name 5 things you see, 4 you feel, 3 you hear, 2 you smell, 1 you taste.',
+      color: '#F59E0B'
+    },
+    {
+      type: 'reminder',
+      icon: 'time',
+      title: 'Gentle Reminder',
+      message: 'Your best cognitive performance is typically in the morning. Consider scheduling important tasks before 11 AM.',
+      color: '#3B82F6'
+    }
+  ];
+
+  // Analytics cards data for carousel
+  const analyticsCards = [
+    { id: 'progress', type: 'progress' },
+    { id: 'performance', type: 'performance' },
+    { id: 'insights', type: 'insights' }
+  ];
+
+  // Reminders data
+  const reminders = [
+    {
+      id: 1,
+      type: 'medication',
+      title: 'Donepezil 10mg',
+      time: '9:00 AM',
+      status: 'pending',
+      color: '#3B82F6',
+      icon: 'medical'
+    },
+    {
+      id: 2,
+      type: 'medication',
+      title: 'Vitamin D',
+      time: '12:00 PM',
+      status: 'completed',
+      color: '#10B981',
+      icon: 'checkmark-circle'
+    },
+    {
+      id: 3,
+      type: 'appointment',
+      title: 'Physical Therapy',
+      time: '3:00 PM',
+      status: 'upcoming',
+      color: '#8B5CF6',
+      icon: 'fitness'
+    },
+    {
+      id: 4,
+      type: 'medication',
+      title: 'Memantine 5mg',
+      time: '8:00 PM',
+      status: 'pending',
+      color: '#3B82F6',
+      icon: 'medical'
+    }
+  ];
+
+  const renderHeader = () => (
+    <View style={styles.header}>
+      <View style={styles.headerLeft}>
+        <TouchableOpacity style={styles.profileAvatar}>
+          <Text style={styles.avatarText}>
+            {userName.charAt(0).toUpperCase()}
+          </Text>
+        </TouchableOpacity>
+      </View>
+      
+      <TouchableOpacity style={styles.notificationButton}>
+        <View style={styles.notificationBadge}>
+          <Text style={styles.badgeText}>3</Text>
+        </View>
+        <Ionicons name="notifications" size={24} color={WellnessTheme.colors.textPrimary} />
+      </TouchableOpacity>
+    </View>
+  );
+
+  const renderRemindersSection = () => (
+    <View style={styles.remindersSection}>
+      <Text style={styles.sectionTitle}>Today's Reminders</Text>
+      <View style={styles.remindersList}>
+        {reminders.map((reminder) => (
+          <View key={reminder.id} style={styles.reminderItem}>
+            <View style={[styles.reminderIcon, { backgroundColor: `${reminder.color}20` }]}>
+              <Ionicons name={reminder.icon as any} size={20} color={reminder.color} />
+            </View>
+            <View style={styles.reminderContent}>
+              <Text style={styles.reminderTitle}>{reminder.title}</Text>
+              <Text style={styles.reminderTime}>{reminder.time}</Text>
+            </View>
+            <View style={styles.reminderStatus}>
+              {reminder.status === 'completed' ? (
+                <Ionicons name="checkmark-circle" size={24} color="#10B981" />
+              ) : reminder.status === 'pending' ? (
+                <TouchableOpacity style={styles.markCompleteButton}>
+                  <Ionicons name="ellipse-outline" size={24} color={reminder.color} />
+                </TouchableOpacity>
+              ) : (
+                <View style={[styles.upcomingDot, { backgroundColor: reminder.color }]} />
+              )}
+            </View>
+          </View>
+        ))}
+      </View>
+    </View>
+  );
 
   const renderGreetingSection = () => (
     <View style={styles.greetingSection}>
@@ -181,35 +305,103 @@ export default function HomeScreen() {
     </View>
   );
 
+  const renderAIInsightsCard = () => (
+    <View style={styles.analyticsCard}>
+      <View style={styles.cardHeader}>
+        <Ionicons name="sparkles" size={24} color="#8B5CF6" />
+        <Text style={styles.cardTitle}>Today's AI Insights</Text>
+      </View>
+      
+      <ScrollView 
+        style={styles.insightsScroll}
+        showsVerticalScrollIndicator={false}
+      >
+        {todayInsights.map((insight, index) => (
+          <View key={index} style={[styles.insightCard, { borderLeftColor: insight.color }]}>
+            <View style={styles.insightHeader}>
+              <Ionicons name={insight.icon as any} size={20} color={insight.color} />
+              <Text style={[styles.insightTitle, { color: insight.color }]}>
+                {insight.title}
+              </Text>
+            </View>
+            <Text style={styles.insightMessage}>{insight.message}</Text>
+          </View>
+        ))}
+      </ScrollView>
+    </View>
+  );
+
+  const renderAnalyticsCard = ({ item }: { item: any }) => {
+    switch (item.type) {
+      case 'progress':
+        return renderProgressTrendCard();
+      case 'performance':
+        return renderPerformanceBreakdown();
+      case 'insights':
+        return renderAIInsightsCard();
+      default:
+        return null;
+    }
+  };
+
+  const onAnalyticsScroll = (event: any) => {
+    const slideSize = screenWidth;
+    const index = Math.round(event.nativeEvent.contentOffset.x / slideSize);
+    setCurrentAnalyticsIndex(index);
+  };
+
   const renderQuickActions = () => (
     <View style={styles.quickActionsSection}>
       <Text style={styles.sectionTitle}>Quick Actions</Text>
-      <View style={styles.quickActionsGrid}>
-        <TouchableOpacity style={[styles.quickActionCard, { backgroundColor: '#FEF3C7' }]}>
-          <Ionicons name="people" size={32} color="#F59E0B" />
-          <Text style={styles.quickActionText}>Contact Caregiver</Text>
+      <ScrollView 
+        horizontal 
+        showsHorizontalScrollIndicator={false}
+        contentContainerStyle={styles.quickActionsScrollContent}
+        style={styles.quickActionsScroll}
+      >
+        <TouchableOpacity style={[styles.quickActionItem, { backgroundColor: '#FEF3C7' }]}>
+          <Ionicons name="people" size={28} color="#F59E0B" />
+          <Text style={styles.quickActionLabel}>Caregiver</Text>
         </TouchableOpacity>
         
-        <TouchableOpacity style={[styles.quickActionCard, { backgroundColor: '#DBEAFE' }]}>
-          <Ionicons name="shield-checkmark" size={32} color="#3B82F6" />
-          <Text style={styles.quickActionText}>Safety Check</Text>
+        <TouchableOpacity style={[styles.quickActionItem, { backgroundColor: '#DBEAFE' }]}>
+          <Ionicons name="shield-checkmark" size={28} color="#3B82F6" />
+          <Text style={styles.quickActionLabel}>Safety</Text>
         </TouchableOpacity>
         
-        <TouchableOpacity style={[styles.quickActionCard, { backgroundColor: '#D1FAE5' }]}>
-          <Ionicons name="calendar" size={32} color="#10B981" />
-          <Text style={styles.quickActionText}>View Schedule</Text>
+        <TouchableOpacity style={[styles.quickActionItem, { backgroundColor: '#D1FAE5' }]}>
+          <Ionicons name="calendar" size={28} color="#10B981" />
+          <Text style={styles.quickActionLabel}>Schedule</Text>
         </TouchableOpacity>
         
-        <TouchableOpacity style={[styles.quickActionCard, { backgroundColor: '#FCE7F3' }]}>
-          <Ionicons name="settings" size={32} color="#EC4899" />
-          <Text style={styles.quickActionText}>Settings</Text>
+        <TouchableOpacity style={[styles.quickActionItem, { backgroundColor: '#FCE7F3' }]}>
+          <Ionicons name="settings" size={28} color="#EC4899" />
+          <Text style={styles.quickActionLabel}>Settings</Text>
         </TouchableOpacity>
-      </View>
+        
+        <TouchableOpacity style={[styles.quickActionItem, { backgroundColor: '#FDE68A' }]}>
+          <Ionicons name="medical" size={28} color="#D97706" />
+          <Text style={styles.quickActionLabel}>Medicine</Text>
+        </TouchableOpacity>
+        
+        <TouchableOpacity style={[styles.quickActionItem, { backgroundColor: '#E0E7FF' }]}>
+          <Ionicons name="call" size={28} color="#6366F1" />
+          <Text style={styles.quickActionLabel}>Emergency</Text>
+        </TouchableOpacity>
+        
+        <TouchableOpacity style={[styles.quickActionItem, { backgroundColor: '#F3E8FF' }]}>
+          <Ionicons name="heart" size={28} color="#8B5CF6" />
+          <Text style={styles.quickActionLabel}>Health</Text>
+        </TouchableOpacity>
+      </ScrollView>
     </View>
   );
 
   return (
     <SafeAreaView style={styles.container}>
+      {/* Header with profile and notifications */}
+      {renderHeader()}
+      
       <ScrollView 
         style={styles.scrollView}
         showsVerticalScrollIndicator={false}
@@ -219,22 +411,44 @@ export default function HomeScreen() {
         {renderGreetingSection()}
         {renderRiskIndicatorCard()}
         
+        {/* Quick Actions - Moved to front */}
+        {renderQuickActions()}
+        
+        {/* Reminders Section */}
+        {renderRemindersSection()}
+        
         {/* Middle Section - Analytics Overview */}
         <View style={styles.analyticsSection}>
           <Text style={styles.sectionTitle}>Analytics Overview</Text>
-          <ScrollView 
-            horizontal 
+          
+          <FlatList
+            ref={analyticsRef}
+            data={analyticsCards}
+            renderItem={renderAnalyticsCard}
+            keyExtractor={(item) => item.id}
+            horizontal
+            pagingEnabled
             showsHorizontalScrollIndicator={false}
-            style={styles.analyticsScroll}
-            contentContainerStyle={styles.analyticsContent}
-          >
-            {renderProgressTrendCard()}
-            {renderPerformanceBreakdown()}
-          </ScrollView>
+            snapToInterval={screenWidth}
+            snapToAlignment="center"
+            decelerationRate="fast"
+            contentContainerStyle={styles.carouselContent}
+            onScroll={onAnalyticsScroll}
+            scrollEventThrottle={16}
+          />
+          
+          <View style={styles.carouselIndicators}>
+            {analyticsCards.map((_, index) => (
+              <View
+                key={index}
+                style={[
+                  styles.indicator,
+                  index === currentAnalyticsIndex && styles.activeIndicator
+                ]}
+              />
+            ))}
+          </View>
         </View>
-        
-        {/* Bottom Section - Quick Actions */}
-        {renderQuickActions()}
       </ScrollView>
     </SafeAreaView>
   );
@@ -249,13 +463,62 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   scrollContent: {
-    paddingBottom: 100, // Account for floating navigation
+    paddingBottom: 150, // Increased to ensure no overlap with floating navigation
+  },
+  
+  // Header styles
+  header: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingHorizontal: WellnessTheme.spacing.lg,
+    paddingTop: WellnessTheme.spacing.sm,
+    paddingBottom: WellnessTheme.spacing.sm,
+  },
+  headerLeft: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  profileAvatar: {
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    backgroundColor: WellnessTheme.colors.primary,
+    alignItems: 'center',
+    justifyContent: 'center',
+    ...WellnessTheme.shadows.sm,
+  },
+  avatarText: {
+    fontSize: WellnessTheme.fontSize.lg,
+    fontWeight: 'bold',
+    color: WellnessTheme.colors.white,
+  },
+  notificationButton: {
+    position: 'relative',
+    padding: WellnessTheme.spacing.sm,
+  },
+  notificationBadge: {
+    position: 'absolute',
+    top: 4,
+    right: 4,
+    backgroundColor: WellnessTheme.colors.error,
+    borderRadius: 10,
+    minWidth: 20,
+    height: 20,
+    alignItems: 'center',
+    justifyContent: 'center',
+    zIndex: 1,
+  },
+  badgeText: {
+    fontSize: 12,
+    fontWeight: 'bold',
+    color: WellnessTheme.colors.white,
   },
   
   // Greeting Section
   greetingSection: {
     paddingHorizontal: WellnessTheme.spacing.lg,
-    paddingTop: WellnessTheme.spacing.md,
+    paddingTop: WellnessTheme.spacing.sm,
     paddingBottom: WellnessTheme.spacing.lg,
   },
   greeting: {
@@ -344,8 +607,8 @@ const styles = StyleSheet.create({
     backgroundColor: WellnessTheme.colors.cardBackground,
     borderRadius: WellnessTheme.borderRadius.xl,
     padding: WellnessTheme.spacing.lg,
-    marginRight: WellnessTheme.spacing.md,
-    width: Dimensions.get('window').width * 0.8,
+    marginHorizontal: WellnessTheme.spacing.lg,
+    width: Dimensions.get('window').width - (WellnessTheme.spacing.lg * 2),
     ...WellnessTheme.shadows.md,
   },
   cardHeader: {
@@ -446,29 +709,136 @@ const styles = StyleSheet.create({
   
   // Quick Actions
   quickActionsSection: {
-    paddingHorizontal: WellnessTheme.spacing.lg,
     marginBottom: WellnessTheme.spacing.xl,
   },
-  quickActionsGrid: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'space-between',
+  quickActionsScroll: {
+    marginHorizontal: 0,
+  },
+  quickActionsScrollContent: {
+    paddingHorizontal: WellnessTheme.spacing.lg,
     gap: WellnessTheme.spacing.md,
   },
-  quickActionCard: {
-    width: '47%',
-    aspectRatio: 1.2,
-    borderRadius: WellnessTheme.borderRadius.xl,
-    padding: WellnessTheme.spacing.lg,
+  quickActionItem: {
     alignItems: 'center',
     justifyContent: 'center',
+    width: 80,
+    height: 80,
+    borderRadius: WellnessTheme.borderRadius.xl,
+    padding: WellnessTheme.spacing.sm,
     ...WellnessTheme.shadows.sm,
   },
-  quickActionText: {
-    fontSize: WellnessTheme.fontSize.sm,
+  quickActionLabel: {
+    fontSize: WellnessTheme.fontSize.xs,
     fontWeight: '600',
     color: WellnessTheme.colors.textPrimary,
     textAlign: 'center',
-    marginTop: WellnessTheme.spacing.sm,
+    marginTop: WellnessTheme.spacing.xs,
+  },
+  
+  // Carousel and indicator styles
+  sectionHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingHorizontal: WellnessTheme.spacing.lg,
+    marginBottom: WellnessTheme.spacing.lg,
+  },
+  carouselIndicators: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    gap: WellnessTheme.spacing.xs,
+    marginTop: WellnessTheme.spacing.lg,
+    marginBottom: WellnessTheme.spacing.xl,
+  },
+  indicator: {
+    width: 8,
+    height: 8,
+    borderRadius: 4,
+    backgroundColor: WellnessTheme.colors.border,
+  },
+  activeIndicator: {
+    backgroundColor: WellnessTheme.colors.primary,
+    width: 20,
+  },
+  carouselContent: {
+    alignItems: 'center',
+  },
+  
+  // AI Insights styles
+  insightsScroll: {
+    maxHeight: 200,
+  },
+  insightCard: {
+    backgroundColor: 'rgba(139, 92, 246, 0.05)',
+    borderRadius: WellnessTheme.borderRadius.lg,
+    padding: WellnessTheme.spacing.md,
+    marginBottom: WellnessTheme.spacing.sm,
+    borderLeftWidth: 4,
+  },
+  insightHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: WellnessTheme.spacing.xs,
+  },
+  insightTitle: {
+    fontSize: WellnessTheme.fontSize.md,
+    fontWeight: '600',
+    marginLeft: WellnessTheme.spacing.sm,
+  },
+  insightMessage: {
+    fontSize: WellnessTheme.fontSize.sm,
+    color: WellnessTheme.colors.textSecondary,
+    lineHeight: 20,
+  },
+  
+  // Reminders Section styles
+  remindersSection: {
+    marginBottom: WellnessTheme.spacing.xl,
+  },
+  remindersList: {
+    gap: WellnessTheme.spacing.sm,
+    paddingHorizontal: WellnessTheme.spacing.lg,
+  },
+  reminderItem: {
+    backgroundColor: WellnessTheme.colors.cardBackground,
+    borderRadius: WellnessTheme.borderRadius.lg,
+    padding: WellnessTheme.spacing.md,
+    flexDirection: 'row',
+    alignItems: 'center',
+    ...WellnessTheme.shadows.sm,
+  },
+  reminderIcon: {
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginRight: WellnessTheme.spacing.md,
+  },
+  reminderContent: {
+    flex: 1,
+  },
+  reminderTitle: {
+    fontSize: WellnessTheme.fontSize.md,
+    fontWeight: '600',
+    color: WellnessTheme.colors.textPrimary,
+    marginBottom: WellnessTheme.spacing.xs,
+  },
+  reminderTime: {
+    fontSize: WellnessTheme.fontSize.sm,
+    color: WellnessTheme.colors.textSecondary,
+  },
+  reminderStatus: {
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  markCompleteButton: {
+    padding: WellnessTheme.spacing.xs,
+  },
+  upcomingDot: {
+    width: 12,
+    height: 12,
+    borderRadius: 6,
   },
 });

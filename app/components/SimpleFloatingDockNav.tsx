@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-type TabType = 'home' | 'medication' | 'calendar' | 'caregivers' | 'profile';
+type TabType = 'home' | 'exercises' | 'results' | 'safety' | 'settings';
 
 interface SimpleFloatingDockNavProps {
   active: TabType;
@@ -25,10 +25,10 @@ interface TabConfig {
 
 const tabs: TabConfig[] = [
   { key: 'home', icon: 'home', label: 'Home' },
-  { key: 'medication', icon: 'medical', label: 'Medications' },
-  { key: 'calendar', icon: 'calendar', label: 'Calendar' },
-  { key: 'caregivers', icon: 'people', label: 'Caregivers' },
-  { key: 'profile', icon: 'person', label: 'Profile' },
+  { key: 'exercises', icon: 'fitness', label: 'Exercises' },
+  { key: 'results', icon: 'analytics', label: 'Results' },
+  { key: 'safety', icon: 'shield-checkmark', label: 'Safety' },
+  { key: 'settings', icon: 'settings', label: 'Settings' },
 ];
 
 const SimpleFloatingDockNav: React.FC<SimpleFloatingDockNavProps> = ({ active, onPress }) => {
@@ -75,26 +75,28 @@ const SimpleFloatingDockNav: React.FC<SimpleFloatingDockNavProps> = ({ active, o
               height: dockConfig.tabItemHeight,
               borderRadius: dockConfig.tabItemHeight / 2,
               width: isActive ? dockConfig.tabItemActiveWidth : dockConfig.tabItemInactiveWidth,
-              backgroundColor: isActive ? '#007AFF' : 'rgba(255, 255, 255, 0.9)', // Apple blue
-              borderWidth: isActive ? 0 : 0.5,
-              borderColor: 'rgba(0, 0, 0, 0.1)',
-              shadowColor: isActive ? '#007AFF' : 'rgba(0, 0, 0, 0.1)',
-              shadowOffset: { width: 0, height: isActive ? 4 : 2 },
-              shadowOpacity: isActive ? 0.3 : 0.1,
-              shadowRadius: isActive ? 8 : 4,
-              elevation: isActive ? 8 : 2,
+              backgroundColor: isActive ? 'rgba(139, 92, 246, 0.25)' : 'transparent',
+              borderWidth: isActive ? 1 : 0,
+              borderColor: isActive ? 'rgba(139, 92, 246, 0.4)' : 'transparent',
+              shadowColor: isActive ? '#8B5CF6' : 'transparent',
+              shadowOffset: { width: 0, height: isActive ? 4 : 0 },
+              shadowOpacity: isActive ? 0.3 : 0,
+              shadowRadius: isActive ? 8 : 0,
+              elevation: isActive ? 8 : 0,
             },
           ]}
         >
           <Ionicons
             name={tab.icon as any}
             size={dockConfig.iconSize}
-            color={isActive ? '#FFFFFF' : '#8E8E93'} // Apple gray
+            color={isActive ? '#8B5CF6' : '#6B7280'} // Better contrast with more opaque background
           />
           {isActive && (
             <Text style={[styles.labelText, { 
               fontSize: dockConfig.fontSize,
               marginLeft: 6,
+              color: '#8B5CF6',
+              fontWeight: '600',
             }]}>
               {tab.label}
             </Text>
@@ -146,21 +148,23 @@ const styles = StyleSheet.create({
   },
   dock: {
     backgroundColor: Platform.select({
-      ios: 'rgba(255, 255, 255, 0.85)', // iOS glassmorphism effect
-      android: 'rgba(255, 255, 255, 0.95)',
+      ios: 'rgba(255, 255, 255, 0.85)', // Much more opaque for better readability
+      android: 'rgba(255, 255, 255, 0.90)',
     }),
+    borderWidth: 1,
+    borderColor: 'rgba(255, 255, 255, 0.4)',
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
     ...Platform.select({
       ios: {
-        shadowColor: 'rgba(0, 0, 0, 0.15)',
+        shadowColor: 'rgba(0, 0, 0, 0.25)',
         shadowOffset: { width: 0, height: 8 },
         shadowOpacity: 1,
-        shadowRadius: 20,
+        shadowRadius: 24,
       },
       android: {
-        elevation: 16,
+        elevation: 20,
       },
     }),
   },
