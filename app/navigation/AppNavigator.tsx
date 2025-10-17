@@ -3,9 +3,15 @@ import React from 'react';
 import { RootStackParamList } from '../types/navigation';
 import { WellnessTheme } from '../utils/wellnessTheme';
 
-// Auth screens
-import ConsentScreen from '../screens/ConsentScreen';
-import SignInScreen from '../screens/SignInScreen';
+
+import {
+  CaregiverBasicsScreen,
+  OTPVerificationScreen,
+  PatientBasicsScreen,
+  PatientConnectScreen,
+  PhoneVerificationScreen,
+  WelcomeScreen
+} from '../screens/auth';
 
 // Main tab navigator
 import MainTabNavigator from './MainTabNavigator';
@@ -15,7 +21,7 @@ const Stack = createStackNavigator<RootStackParamList>();
 export default function AppNavigator() {
   return (
     <Stack.Navigator
-      initialRouteName="SignIn"
+      initialRouteName="Welcome"
       screenOptions={{
         headerStyle: {
           backgroundColor: WellnessTheme.colors.primary,
@@ -32,21 +38,52 @@ export default function AppNavigator() {
         },
       }}
     >
-      {/* Auth Flow */}
+      {/* New Auth Flow */}
       <Stack.Screen 
-        name="SignIn" 
-        component={SignInScreen}
+        name="Welcome" 
+        component={WelcomeScreen}
         options={{ 
           headerShown: false,
         }}
       />
       <Stack.Screen 
-        name="Consent" 
-        component={ConsentScreen}
+        name="PhoneVerification" 
+        component={PhoneVerificationScreen}
         options={{ 
-          title: 'Terms & Privacy',
+          headerShown: false,
         }}
       />
+      <Stack.Screen 
+        name="OTPVerification" 
+        component={OTPVerificationScreen}
+        options={{ 
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen 
+        name="PatientBasics" 
+        component={PatientBasicsScreen}
+        options={{ 
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen 
+        name="CaregiverBasics" 
+        component={CaregiverBasicsScreen}
+        options={{ 
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen 
+        name="PatientConnect" 
+        component={PatientConnectScreen}
+        options={{ 
+          headerShown: false,
+        }}
+      />
+
+      {/* Original Auth Flow (keeping for compatibility) */}
+     
 
       {/* Main App Flow */}
       <Stack.Screen 

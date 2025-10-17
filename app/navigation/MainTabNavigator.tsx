@@ -3,10 +3,10 @@ import React from 'react';
 import { StyleSheet, View } from 'react-native';
 
 import SimpleFloatingDockNav from '../components/SimpleFloatingDockNav';
-import ExercisesScreen from '../screens/ExercisesScreen';
-import HomeScreen from '../screens/HomeScreen';
-import ResultsScreen from '../screens/ResultsScreen';
-import SafetyScreen from '../screens/SafetyScreen';
+import ExercisesScreen from '../screens/patient/ExercisesScreen';
+import HomeScreen from '../screens/patient/HomeScreen';
+import ResultsScreen from '../screens/patient/ResultsScreen';
+import SafetyScreen from '../screens/patient/SafetyScreen';
 import SettingsScreen from '../screens/SettingsScreen';
 import { MainTabParamList } from '../types/navigation';
 import { WellnessTheme } from '../utils/wellnessTheme';

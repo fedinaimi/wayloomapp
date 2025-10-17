@@ -22,7 +22,7 @@ import {
     getUserSettings,
     motivationalQuotes,
     saveUserSettings
-} from '../services/exercises';
+} from '../../services/exercises';
 import {
     Achievement,
     AnalyticsSummary,
@@ -30,8 +30,8 @@ import {
     Exercise,
     ExerciseDomain,
     UserSettings
-} from '../types/exercises';
-import { WellnessTheme } from '../utils/wellnessTheme';
+} from '../../types/exercises';
+import { WellnessTheme } from '../../utils/wellnessTheme';
 
 const { width: screenWidth } = Dimensions.get('window');
 

@@ -2,7 +2,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import React, { useEffect, useRef, useState } from 'react';
 import { Animated, SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { WellnessTheme } from '../utils/wellnessTheme';
+import { WellnessTheme } from '../../utils/wellnessTheme';
 
 export default function BreathingMeditationScreen() {
   const [isPlaying, setIsPlaying] = useState(false);

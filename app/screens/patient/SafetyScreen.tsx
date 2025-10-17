@@ -10,7 +10,7 @@ import {
     View,
 } from 'react-native';
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
-import { WellnessTheme } from '../utils/wellnessTheme';
+import { WellnessTheme } from '../../utils/wellnessTheme';
 
 interface SafetyScreenProps {
   navigation: any;
