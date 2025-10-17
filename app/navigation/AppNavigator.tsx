@@ -15,6 +15,7 @@ import {
 
 // Main tab navigator
 import MainTabNavigator from './MainTabNavigator';
+import CaregiverTabNavigator from './CaregiverTabNavigator';
 
 const Stack = createStackNavigator<RootStackParamList>();
 
@@ -89,6 +90,14 @@ export default function AppNavigator() {
       <Stack.Screen 
         name="MainTabs" 
         component={MainTabNavigator}
+        options={{ 
+          headerShown: false,
+        }}
+      />
+      
+      <Stack.Screen 
+        name="CaregiverTabs" 
+        component={CaregiverTabNavigator}
         options={{ 
           headerShown: false,
         }}

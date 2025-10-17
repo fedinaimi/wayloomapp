@@ -7,7 +7,7 @@ import ExercisesScreen from '../screens/patient/ExercisesScreen';
 import HomeScreen from '../screens/patient/HomeScreen';
 import ResultsScreen from '../screens/patient/ResultsScreen';
 import SafetyScreen from '../screens/patient/SafetyScreen';
-import SettingsScreen from '../screens/SettingsScreen';
+import SettingsScreen from '../screens/patient/SettingsScreen';
 import { MainTabParamList } from '../types/navigation';
 import { WellnessTheme } from '../utils/wellnessTheme';
 

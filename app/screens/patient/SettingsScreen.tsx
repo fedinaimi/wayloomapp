@@ -2,7 +2,7 @@ import { Ionicons } from '@expo/vector-icons';
 import React, { useState } from 'react';
 import { Alert, ScrollView, StyleSheet, Switch, Text, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
-import { WellnessTheme } from '../utils/wellnessTheme';
+import { WellnessTheme } from '../../utils/wellnessTheme';
 
 export default function SettingsScreen() {
   const insets = useSafeAreaInsets();

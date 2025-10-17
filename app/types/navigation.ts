@@ -33,6 +33,7 @@ export type RootStackParamList = {
   
   // Main app navigation
   MainTabs: undefined;
+  CaregiverTabs: undefined;
 };
 
 export type MainTabParamList = {
@@ -41,4 +42,12 @@ export type MainTabParamList = {
   Results: undefined;
   Safety: undefined;
   Settings: undefined;
+};
+
+export type CaregiverTabParamList = {
+  CaregiverHome: undefined;
+  CaregiverPatients: undefined;
+  CaregiverAlerts: undefined;
+  CaregiverReminders: undefined;
+  CaregiverSettings: undefined;
 };

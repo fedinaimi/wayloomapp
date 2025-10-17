@@ -76,15 +76,8 @@ export default function PatientConnectScreen({ navigation, route }: PatientConne
           {
             text: 'OK',
             onPress: () => {
-              // Navigate to caregiver dashboard with pending status
-              navigation.navigate('CaregiverDashboard', {
-                caregiverData,
-                pendingPatients: [{
-                  phone: patientPhone,
-                  status: 'pending',
-                  invitedAt: new Date().toISOString()
-                }]
-              });
+              // Navigate to caregiver home
+              navigation.navigate('CaregiverTabs');
             }
           }
         ]
@@ -115,14 +108,7 @@ export default function PatientConnectScreen({ navigation, route }: PatientConne
                   {
                     text: 'OK',
                     onPress: () => {
-                      navigation.navigate('CaregiverDashboard', {
-                        caregiverData,
-                        pendingPatients: [{
-                          name: 'Patient Name',
-                          status: 'pending',
-                          connectedAt: new Date().toISOString()
-                        }]
-                      });
+                      navigation.navigate('CaregiverTabs');
                     }
                   }
                 ]
