@@ -14,8 +14,8 @@ import {
 } from '../screens/auth';
 
 // Main tab navigator
-import MainTabNavigator from './MainTabNavigator';
 import CaregiverTabNavigator from './CaregiverTabNavigator';
+import MainTabNavigator from './MainTabNavigator';
 
 const Stack = createStackNavigator<RootStackParamList>();
 

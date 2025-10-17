@@ -1,17 +1,17 @@
 import { Ionicons } from '@expo/vector-icons';
 import React, { useState } from 'react';
 import {
-  Alert,
-  ScrollView,
-  StyleSheet,
-  Switch,
-  Text,
-  TouchableOpacity,
-  View,
+    Alert,
+    ScrollView,
+    StyleSheet,
+    Switch,
+    Text,
+    TouchableOpacity,
+    View,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import CaregiverHeader from '../../components/CaregiverHeader';
 import CaregiverGreetingSection from '../../components/CaregiverGreetingSection';
+import CaregiverHeader from '../../components/CaregiverHeader';
 import { WellnessTheme } from '../../utils/wellnessTheme';
 
 export default function CaregiverSettingsScreen() {

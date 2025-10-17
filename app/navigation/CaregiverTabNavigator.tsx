@@ -3,11 +3,11 @@ import React from 'react';
 
 import CaregiverFloatingDockNav from '../components/CaregiverFloatingDockNav';
 import {
-  CaregiverAlertsScreen,
-  CaregiverHomeScreen,
-  CaregiverPatientsScreen,
-  CaregiverRemindersScreen,
-  CaregiverSettingsScreen
+    CaregiverAlertsScreen,
+    CaregiverHomeScreen,
+    CaregiverPatientsScreen,
+    CaregiverRemindersScreen,
+    CaregiverSettingsScreen
 } from '../screens/caregivers';
 import { CaregiverTabParamList } from '../types/navigation';
 
