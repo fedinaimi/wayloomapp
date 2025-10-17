@@ -9,15 +9,23 @@ import {
     TouchableOpacity,
     View
 } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 import { WellnessTheme } from '../utils/wellnessTheme';
 
 export default function HomeScreen() {
   const { width: screenWidth } = Dimensions.get('window');
+  const insets = useSafeAreaInsets();
   const [userName] = useState('Amina');
   const [riskStatus] = useState<'stable' | 'watch' | 'consult'>('stable');
   const [currentAnalyticsIndex, setCurrentAnalyticsIndex] = useState(0);
   const analyticsRef = useRef<FlatList>(null);
+
+  // Calculate navigation height based on screen size (same as SimpleFloatingDockNav)
+  const isSmallScreen = screenWidth < 375;
+  const isMediumScreen = screenWidth >= 375 && screenWidth < 414;
+  const navigationHeight = isSmallScreen ? 64 : isMediumScreen ? 68 : 72;
+  const navigationBottomMargin = isSmallScreen ? 8 : 10;
+  const totalNavigationSpace = navigationHeight + navigationBottomMargin + insets.bottom + 20; // Add 20px buffer
 
   // Get current time for greeting
   const getGreeting = () => {
@@ -31,21 +39,21 @@ export default function HomeScreen() {
   const riskIndicator = {
     stable: {
       color: '#10B981',
-      icon: '🟢',
+      icon: 'checkmark-circle',
       message: 'Your memory and attention look steady this week.',
       bgColor: 'rgba(16, 185, 129, 0.1)',
       status: 'Stable'
     },
     watch: {
       color: '#F59E0B',
-      icon: '🟡',
+      icon: 'warning',
       message: 'Some changes noticed. Let\'s keep monitoring together.',
       bgColor: 'rgba(245, 158, 11, 0.1)',
       status: 'Monitor'
     },
     consult: {
       color: '#EF4444',
-      icon: '🔴',
+      icon: 'alert-circle',
       message: 'Please consult with your healthcare provider.',
       bgColor: 'rgba(239, 68, 68, 0.1)',
       status: 'Consult'
@@ -206,7 +214,12 @@ export default function HomeScreen() {
     <View style={[styles.riskCard, { backgroundColor: currentRisk.bgColor }]}>
       <View style={styles.riskHeader}>
         <View style={styles.riskBadge}>
-          <Text style={styles.riskIcon}>{currentRisk.icon}</Text>
+          <Ionicons 
+            name={currentRisk.icon as any} 
+            size={20} 
+            color={currentRisk.color}
+            style={styles.riskIconStyle}
+          />
           <Text style={[styles.riskStatus, { color: currentRisk.color }]}>
             {currentRisk.status}
           </Text>
@@ -405,7 +418,8 @@ export default function HomeScreen() {
       <ScrollView 
         style={styles.scrollView}
         showsVerticalScrollIndicator={false}
-        contentContainerStyle={styles.scrollContent}
+        contentContainerStyle={[styles.scrollContent, { paddingBottom: totalNavigationSpace }]}
+        contentInsetAdjustmentBehavior="automatic"
       >
         {/* Top Section - Greeting & Risk Indicator */}
         {renderGreetingSection()}
@@ -463,7 +477,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   scrollContent: {
-    paddingBottom: 150, // Increased to ensure no overlap with floating navigation
+    // Dynamic paddingBottom calculated based on navigation height and safe area
   },
   
   // Header styles
@@ -550,8 +564,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
   },
-  riskIcon: {
-    fontSize: 24,
+  riskIconStyle: {
     marginRight: WellnessTheme.spacing.sm,
   },
   riskStatus: {

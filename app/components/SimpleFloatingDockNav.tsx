@@ -1,12 +1,12 @@
 import { Ionicons } from '@expo/vector-icons';
 import React from 'react';
 import {
-    Dimensions,
-    Platform,
-    StyleSheet,
-    Text,
-    TouchableOpacity,
-    View,
+  Dimensions,
+  Platform,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
@@ -117,6 +117,15 @@ const SimpleFloatingDockNav: React.FC<SimpleFloatingDockNavProps> = ({ active, o
         },
       ]}
     >
+      {/* Solid backdrop to prevent any content showing through */}
+      <View style={[
+        styles.backdrop,
+        {
+          borderTopLeftRadius: dockConfig.borderRadius,
+          borderTopRightRadius: dockConfig.borderRadius,
+        }
+      ]} />
+      
       <View style={[
         styles.dock,
         {
@@ -146,25 +155,33 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     zIndex: 1000,
   },
+  backdrop: {
+    position: 'absolute',
+    bottom: -10,
+    left: -10,
+    right: -10,
+    height: 40,
+    backgroundColor: '#F8FAFC', // Match HomeScreen background color
+
+    zIndex: -1,
+  },
   dock: {
-    backgroundColor: Platform.select({
-      ios: 'rgba(255, 255, 255, 0.85)', // Much more opaque for better readability
-      android: 'rgba(255, 255, 255, 0.90)',
-    }),
+    backgroundColor: '#FFFFFF', // Completely solid white background - 0% transparency
     borderWidth: 1,
-    borderColor: 'rgba(255, 255, 255, 0.4)',
+    borderColor: 'rgba(0, 0, 0, 0.15)',
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
+    // Minimal shadow - much smaller and subtle
     ...Platform.select({
       ios: {
-        shadowColor: 'rgba(0, 0, 0, 0.25)',
-        shadowOffset: { width: 0, height: 8 },
+        shadowColor: 'rgba(0, 0, 0, 0.1)',
+        shadowOffset: { width: 0, height: 2 },
         shadowOpacity: 1,
-        shadowRadius: 24,
+        shadowRadius: 8,
       },
       android: {
-        elevation: 20,
+        elevation: 4,
       },
     }),
   },

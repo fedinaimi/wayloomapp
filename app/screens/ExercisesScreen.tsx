@@ -11,7 +11,7 @@ import {
     TouchableOpacity,
     View
 } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 import {
     getAchievements,
     getAnalyticsSummary,
@@ -36,6 +36,8 @@ import { WellnessTheme } from '../utils/wellnessTheme';
 const { width: screenWidth } = Dimensions.get('window');
 
 export default function ExercisesScreen() {
+  const insets = useSafeAreaInsets();
+  
   // State management
   const [dailyPlan, setDailyPlan] = useState<DailyPlan | null>(null);
   const [exercises, setExercises] = useState<Exercise[]>([]);
@@ -398,6 +400,13 @@ export default function ExercisesScreen() {
     );
   }
 
+  // Calculate navigation height for bottom padding
+  const isSmallScreen = screenWidth < 375;
+  const isMediumScreen = screenWidth >= 375 && screenWidth < 414;
+  const navigationHeight = isSmallScreen ? 64 : isMediumScreen ? 68 : 72;
+  const navigationBottomMargin = isSmallScreen ? 8 : 10;
+  const totalNavigationSpace = navigationHeight + navigationBottomMargin + insets.bottom + 20;
+
   return (
     <SafeAreaView style={styles.container}>
       {/* Header with profile and notifications */}
@@ -405,7 +414,7 @@ export default function ExercisesScreen() {
       
       <ScrollView 
         style={styles.scrollView} 
-        contentContainerStyle={styles.content}
+        contentContainerStyle={[styles.content, { paddingBottom: totalNavigationSpace }]}
         showsVerticalScrollIndicator={false}
       >
         {/* Header */}
@@ -451,7 +460,7 @@ const styles = StyleSheet.create({
   },
   content: {
     padding: WellnessTheme.spacing.lg,
-    paddingBottom: 150,
+    // Dynamic paddingBottom calculated based on navigation height and safe area
   },
   
   // Header styles
