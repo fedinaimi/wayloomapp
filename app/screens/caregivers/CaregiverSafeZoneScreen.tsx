@@ -1,16 +1,16 @@
 import { Ionicons } from '@expo/vector-icons';
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import {
-  Alert,
-  Dimensions,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
+    Alert,
+    Dimensions,
+    StyleSheet,
+    Text,
+    TouchableOpacity,
+    View,
 } from 'react-native';
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
-import CaregiverHeader from '../../components/CaregiverHeader';
 import CaregiverGreetingSection from '../../components/CaregiverGreetingSection';
+import CaregiverHeader from '../../components/CaregiverHeader';
 import { WellnessTheme } from '../../utils/wellnessTheme';
 
 // Mock patient location data
