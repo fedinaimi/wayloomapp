@@ -49,5 +49,6 @@ export type CaregiverTabParamList = {
   CaregiverPatients: undefined;
   CaregiverAlerts: undefined;
   CaregiverReminders: undefined;
+  CaregiverSafeZone: undefined;
   CaregiverSettings: undefined;
 };

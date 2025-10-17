@@ -163,12 +163,18 @@ export default function WelcomeScreen({ navigation }: WelcomeScreenProps) {
 
         {/* Accessibility Features */}
         <View style={styles.accessibilityInfo}>
-          <Text style={styles.accessibilityText}>
-            🔊 Tap the speaker icon for audio assistance
-          </Text>
-          <Text style={styles.accessibilityText}>
-            📱 Large fonts and high contrast available in settings
-          </Text>
+          <View style={styles.accessibilityRow}>
+            <Ionicons name="volume-high" size={16} color={WellnessTheme.colors.primary} style={styles.accessibilityIcon} />
+            <Text style={styles.accessibilityText}>
+              Tap the speaker icon for audio assistance
+            </Text>
+          </View>
+          <View style={styles.accessibilityRow}>
+            <Ionicons name="phone-portrait" size={16} color={WellnessTheme.colors.primary} style={styles.accessibilityIcon} />
+            <Text style={styles.accessibilityText}>
+              Large fonts and high contrast available in settings
+            </Text>
+          </View>
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -330,5 +336,14 @@ const styles = StyleSheet.create({
     color: WellnessTheme.colors.textSecondary,
     lineHeight: 20,
     marginBottom: 4,
+    flex: 1,
+  },
+  accessibilityRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 4,
+  },
+  accessibilityIcon: {
+    marginRight: WellnessTheme.spacing.sm,
   },
 });

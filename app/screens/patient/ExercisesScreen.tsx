@@ -116,7 +116,7 @@ export default function ExercisesScreen() {
   const handleShareSummary = async () => {
     if (!analytics) return;
     
-    const message = `My cognitive training progress: ${analytics.consistencyStreak} day streak! Most improved area: ${analytics.mostImprovedArea}. Keep your brain healthy! 🧠`;
+    const message = `My cognitive training progress: ${analytics.consistencyStreak} day streak! Most improved area: ${analytics.mostImprovedArea}. Keep your brain healthy!`;
     
     try {
       await Share.share({ message });

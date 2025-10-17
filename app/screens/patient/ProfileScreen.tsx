@@ -1,3 +1,4 @@
+import { Ionicons } from '@expo/vector-icons';
 import React from 'react';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import { WellnessTheme } from '../../utils/wellnessTheme';
@@ -52,9 +53,12 @@ export default function ProfileScreen() {
       </View>
 
       <View style={styles.placeholderSection}>
-        <Text style={styles.placeholderText}>
-          ⚙️ More profile settings coming soon
-        </Text>
+        <View style={styles.placeholderRow}>
+          <Ionicons name="settings" size={16} color={WellnessTheme.colors.primary} style={styles.placeholderIcon} />
+          <Text style={styles.placeholderText}>
+            More profile settings coming soon
+          </Text>
+        </View>
       </View>
     </ScrollView>
   );
@@ -154,5 +158,15 @@ const styles = StyleSheet.create({
     fontSize: WellnessTheme.fontSize.lg,
     color: WellnessTheme.colors.textSecondary,
     textAlign: 'center',
+    flex: 1,
+    marginLeft: WellnessTheme.spacing.sm,
+  },
+  placeholderRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  placeholderIcon: {
+    marginRight: WellnessTheme.spacing.xs,
   },
 });

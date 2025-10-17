@@ -69,7 +69,7 @@ export default function PatientConnectScreen({ navigation, route }: PatientConne
       await new Promise(resolve => setTimeout(resolve, 2000));
       
       Alert.alert(
-        'Invitation Sent! 📱',
+        'Invitation Sent!',
         `We've sent an SMS link to ${patientPhone} with instructions to connect with you as their caregiver. They'll need to approve your request.`,
         [
           {
@@ -101,7 +101,7 @@ export default function PatientConnectScreen({ navigation, route }: PatientConne
             // Simulate QR scan success
             setTimeout(() => {
               Alert.alert(
-                'QR Code Scanned! ✅',
+                'QR Code Scanned!',
                 'Connection request sent to the patient. They will need to approve your request to become their caregiver.',
                 [
                   {

@@ -116,7 +116,7 @@ export default function CaregiverHomeScreen() {
       <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
         {/* Greeting Section */}
         <CaregiverGreetingSection 
-          title={`Good ${getGreeting()}, ${mockData.caregiver.name} 👩‍⚕️`}
+          title={`Good ${getGreeting()}, ${mockData.caregiver.name}`}
           subtitle={`Caring for ${mockData.patients[0].name} with compassion`}
         />
         
@@ -265,17 +265,53 @@ export default function CaregiverHomeScreen() {
           </View>
         </View>
 
+        {/* Safety & Location Status */}
+        <View style={styles.section}>
+          <Text style={styles.sectionTitle}>Safety Status</Text>
+          <View style={styles.card}>
+            <View style={styles.safetyStatusRow}>
+              <View style={styles.safetyIcon}>
+                <Ionicons name="shield-checkmark" size={24} color={WellnessTheme.colors.success} />
+              </View>
+              <View style={styles.safetyContent}>
+                <Text style={styles.safetyStatus}>Patient is in Safe Zone</Text>
+                <Text style={styles.safetyDetails}>Home Area • Last updated 5 min ago</Text>
+                <View style={styles.safetyActions}>
+                  <TouchableOpacity 
+                    style={styles.safetyActionButton}
+                    onPress={() => Alert.alert('Location', 'Current location: 123 Main Street, San Francisco, CA')}
+                  >
+                    <Ionicons name="location-outline" size={16} color={WellnessTheme.colors.primary} />
+                    <Text style={styles.safetyActionText}>View Location</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity 
+                    style={styles.safetyActionButton}
+                    onPress={() => Alert.alert('Safe Zones', 'Manage safe zones feature coming soon')}
+                  >
+                    <Ionicons name="settings-outline" size={16} color={WellnessTheme.colors.primary} />
+                    <Text style={styles.safetyActionText}>Manage Zones</Text>
+                  </TouchableOpacity>
+                </View>
+              </View>
+            </View>
+          </View>
+        </View>
+
         {/* Quick Actions */}
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>Quick Actions</Text>
           <View style={styles.quickActionsGrid}>
             {[
-              { icon: 'create-outline', label: 'Add observation' },
-              { icon: 'notifications-outline', label: 'Nudge patient' },
-              { icon: 'alarm-outline', label: 'Create reminder' },
-              { icon: 'share-outline', label: 'Share report' }
+              { icon: 'create-outline', label: 'Add observation', action: () => Alert.alert('Feature', 'Add observation coming soon') },
+              { icon: 'shield-outline', label: 'Safe zones', action: () => Alert.alert('Safe Zones', 'Define safe areas where the patient can move freely. This feature helps monitor if they leave designated safe zones.') },
+              { icon: 'alarm-outline', label: 'Create reminder', action: () => Alert.alert('Feature', 'Create reminder coming soon') },
+              { icon: 'share-outline', label: 'Share report', action: () => Alert.alert('Feature', 'Share report coming soon') }
             ].map((action, index) => (
-              <TouchableOpacity key={index} style={styles.quickActionButton}>
+              <TouchableOpacity 
+                key={index} 
+                style={styles.quickActionButton}
+                onPress={action.action}
+              >
                 <View style={styles.quickActionIcon}>
                   <Ionicons name={action.icon as any} size={24} color={WellnessTheme.colors.primary} />
                 </View>
@@ -597,5 +633,46 @@ const styles = StyleSheet.create({
   },
   bottomPadding: {
     height: 100, // Space for tab navigation
+  },
+  safetyStatusRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingVertical: WellnessTheme.spacing.sm,
+  },
+  safetyIcon: {
+    marginRight: WellnessTheme.spacing.md,
+  },
+  safetyContent: {
+    flex: 1,
+  },
+  safetyStatus: {
+    fontSize: WellnessTheme.fontSize.md,
+    fontWeight: '600',
+    marginBottom: 2,
+  },
+  safetyDetails: {
+    fontSize: WellnessTheme.fontSize.sm,
+    color: WellnessTheme.colors.textSecondary,
+  },
+  safetyActions: {
+    flexDirection: 'row',
+    gap: WellnessTheme.spacing.sm,
+    marginTop: WellnessTheme.spacing.sm,
+  },
+  safetyActionButton: {
+    flex: 1,
+    backgroundColor: WellnessTheme.colors.primaryLight,
+    paddingVertical: WellnessTheme.spacing.xs,
+    paddingHorizontal: WellnessTheme.spacing.sm,
+    borderRadius: 8,
+    alignItems: 'center',
+    flexDirection: 'row',
+    justifyContent: 'center',
+  },
+  safetyActionText: {
+    fontSize: WellnessTheme.fontSize.sm,
+    color: WellnessTheme.colors.primary,
+    fontWeight: '500',
+    marginLeft: 4,
   },
 });

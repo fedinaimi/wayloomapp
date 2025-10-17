@@ -201,9 +201,12 @@ export default function HomeScreen() {
 
   const renderGreetingSection = () => (
     <View style={styles.greetingSection}>
-      <Text style={styles.greeting}>
-        {getGreeting()}, {userName} 🌞
-      </Text>
+      <View style={styles.greetingRow}>
+        <Text style={styles.greeting}>
+          {getGreeting()}, {userName}
+        </Text>
+        <Ionicons name="sunny" size={20} color="#FFA500" style={styles.greetingIcon} />
+      </View>
       <Text style={styles.subGreeting}>
         Your daily cognitive health companion
       </Text>
@@ -535,11 +538,19 @@ const styles = StyleSheet.create({
     paddingTop: WellnessTheme.spacing.sm,
     paddingBottom: WellnessTheme.spacing.lg,
   },
+  greetingRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: WellnessTheme.spacing.xs,
+  },
   greeting: {
     fontSize: WellnessTheme.fontSize.xxxl,
     fontWeight: 'bold',
     color: WellnessTheme.colors.textPrimary,
-    marginBottom: WellnessTheme.spacing.xs,
+    flex: 1,
+  },
+  greetingIcon: {
+    marginLeft: WellnessTheme.spacing.sm,
   },
   subGreeting: {
     fontSize: WellnessTheme.fontSize.md,
