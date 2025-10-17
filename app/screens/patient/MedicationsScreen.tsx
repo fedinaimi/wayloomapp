@@ -1,6 +1,6 @@
 import React from 'react';
-import { View, Text, StyleSheet, ScrollView, SafeAreaView } from 'react-native';
-import { WellnessTheme } from '../utils/wellnessTheme';
+import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import { WellnessTheme } from '../../utils/wellnessTheme';
 
 export default function MedicationsScreen() {
   return (

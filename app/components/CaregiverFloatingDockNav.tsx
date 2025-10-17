@@ -10,28 +10,28 @@ import {
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-type TabType = 'home' | 'exercises' | 'results' | 'safety' | 'settings';
+type CaregiverTabType = 'caregiverHome' | 'caregiverPatients' | 'caregiverAlerts' | 'caregiverReminders' | 'caregiverSettings';
 
-interface SimpleFloatingDockNavProps {
-  active: TabType;
-  onPress: (tab: TabType) => void;
+interface CaregiverFloatingDockNavProps {
+  active: CaregiverTabType;
+  onPress: (tab: CaregiverTabType) => void;
 }
 
 interface TabConfig {
-  key: TabType;
+  key: CaregiverTabType;
   icon: string;
   label: string;
 }
 
 const tabs: TabConfig[] = [
-  { key: 'home', icon: 'home', label: 'Home' },
-  { key: 'exercises', icon: 'fitness', label: 'Exercises' },
-  { key: 'results', icon: 'analytics', label: 'Results' },
-  { key: 'safety', icon: 'shield-checkmark', label: 'Safety' },
-  { key: 'settings', icon: 'settings', label: 'Settings' },
+  { key: 'caregiverHome', icon: 'home', label: 'Home' },
+  { key: 'caregiverPatients', icon: 'people', label: 'Patients' },
+  { key: 'caregiverAlerts', icon: 'notifications', label: 'Alerts' },
+  { key: 'caregiverReminders', icon: 'alarm', label: 'Reminders' },
+  { key: 'caregiverSettings', icon: 'settings', label: 'Settings' },
 ];
 
-const SimpleFloatingDockNav: React.FC<SimpleFloatingDockNavProps> = ({ active, onPress }) => {
+const CaregiverFloatingDockNav: React.FC<CaregiverFloatingDockNavProps> = ({ active, onPress }) => {
   const insets = useSafeAreaInsets();
   const { width: screenWidth } = Dimensions.get('window');
   
@@ -162,7 +162,6 @@ const styles = StyleSheet.create({
     right: -10,
     height: 40,
     backgroundColor: '#F8FAFC', // Match HomeScreen background color
-
     zIndex: -1,
   },
   dock: {
@@ -207,4 +206,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default SimpleFloatingDockNav;
+export default CaregiverFloatingDockNav;

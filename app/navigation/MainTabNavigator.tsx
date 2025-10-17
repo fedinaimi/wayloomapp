@@ -1,28 +1,27 @@
+import { BottomTabBarProps, createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import React from 'react';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { View, StyleSheet } from 'react-native';
-import { BottomTabBarProps } from '@react-navigation/bottom-tabs';
+import { StyleSheet, View } from 'react-native';
 
-import WellnessHomeScreen from '../screens/WellnessHomeScreen';
-import MedicationsScreen from '../screens/MedicationsScreen';
-import CalendarScreen from '../screens/CalendarScreen';
-import CaregiversScreen from '../screens/CaregiversScreen';
-import ProfileScreen from '../screens/ProfileScreen';
 import SimpleFloatingDockNav from '../components/SimpleFloatingDockNav';
+import ExercisesScreen from '../screens/patient/ExercisesScreen';
+import HomeScreen from '../screens/patient/HomeScreen';
+import ResultsScreen from '../screens/patient/ResultsScreen';
+import SafetyScreen from '../screens/patient/SafetyScreen';
+import SettingsScreen from '../screens/patient/SettingsScreen';
 import { MainTabParamList } from '../types/navigation';
 import { WellnessTheme } from '../utils/wellnessTheme';
 
 const Tab = createBottomTabNavigator<MainTabParamList>();
 
-type TabType = 'home' | 'medication' | 'calendar' | 'caregivers' | 'profile';
+type TabType = 'home' | 'exercises' | 'results' | 'safety' | 'settings';
 
 // Map route names to tab types
 const routeToTabMap: Record<string, TabType> = {
   'Home': 'home',
-  'Medications': 'medication',
-  'Calendar': 'calendar',
-  'Caregivers': 'caregivers',
-  'Profile': 'profile',
+  'Exercises': 'exercises',
+  'Results': 'results',
+  'Safety': 'safety',
+  'Settings': 'settings',
 };
 
 // Custom tab bar component
@@ -60,23 +59,23 @@ export default function MainTabNavigator() {
       >
         <Tab.Screen 
           name="Home" 
-          component={WellnessHomeScreen}
+          component={HomeScreen}
         />
         <Tab.Screen 
-          name="Medications" 
-          component={MedicationsScreen}
+          name="Exercises" 
+          component={ExercisesScreen}
         />
         <Tab.Screen 
-          name="Calendar" 
-          component={CalendarScreen}
+          name="Results" 
+          component={ResultsScreen}
         />
         <Tab.Screen 
-          name="Caregivers" 
-          component={CaregiversScreen}
+          name="Safety" 
+          component={SafetyScreen}
         />
         <Tab.Screen 
-          name="Profile" 
-          component={ProfileScreen}
+          name="Settings" 
+          component={SettingsScreen}
         />
       </Tab.Navigator>
     </View>

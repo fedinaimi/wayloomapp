@@ -1,6 +1,6 @@
-import React from 'react';
-import { TouchableOpacity, Text, StyleSheet, ActivityIndicator, View } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
+import React from 'react';
+import { ActivityIndicator, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { WellnessTheme } from '../utils/wellnessTheme';
 
 interface WellnessButtonProps {
