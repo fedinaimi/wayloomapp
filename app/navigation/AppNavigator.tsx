@@ -7,7 +7,8 @@ import { WellnessTheme } from '../utils/wellnessTheme';
 import {
   CaregiverBasicsScreen,
   OTPVerificationScreen,
-  PatientBasicsScreen,
+  PatientProfileForm,
+  TestReadinessScreen,
   PatientConnectScreen,
   PhoneVerificationScreen,
   WelcomeScreen
@@ -62,8 +63,15 @@ export default function AppNavigator() {
         }}
       />
       <Stack.Screen 
-        name="PatientBasics" 
-        component={PatientBasicsScreen}
+        name="PatientProfileForm" 
+        component={PatientProfileForm}
+        options={{ 
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen 
+        name="TestReadiness" 
+        component={TestReadinessScreen}
         options={{ 
           headerShown: false,
         }}
@@ -82,9 +90,6 @@ export default function AppNavigator() {
           headerShown: false,
         }}
       />
-
-      {/* Original Auth Flow (keeping for compatibility) */}
-     
 
       {/* Main App Flow */}
       <Stack.Screen 

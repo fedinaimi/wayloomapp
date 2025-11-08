@@ -111,7 +111,7 @@ export default function OTPVerificationScreen({ navigation, route }: OTPVerifica
 
   const navigateToNextScreen = (biometricEnabled: boolean) => {
     if (role === 'patient') {
-      navigation.navigate('PatientBasics', { phoneNumber, biometricEnabled });
+      navigation.navigate('PatientProfileForm', { phoneNumber, biometricEnabled });
     } else {
       navigation.navigate('CaregiverBasics', { phoneNumber, biometricEnabled });
     }

@@ -1,9 +1,11 @@
 export type RootStackParamList = {
-  // New Auth Flow
+  // Auth Flow
   Welcome: undefined;
   PhoneVerification: { role: 'patient' | 'caregiver' };
   OTPVerification: { role: 'patient' | 'caregiver'; phoneNumber: string };
-  PatientBasics: { phoneNumber: string; biometricEnabled: boolean };
+  PatientProfileForm: { phoneNumber: string; biometricEnabled: boolean };
+  TestReadiness: { patientData: any };
+  CognitiveTest: { patientData: any };
   CaregiverBasics: { phoneNumber: string; biometricEnabled: boolean };
   PatientConnect: { 
     caregiverData: {
@@ -32,7 +34,7 @@ export type RootStackParamList = {
   };
   
   // Main app navigation
-  MainTabs: undefined;
+  MainTabs: { patientData?: any } | undefined;
   CaregiverTabs: undefined;
 };
 
