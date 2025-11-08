@@ -1,15 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import { Ionicons } from '@expo/vector-icons';
+import React, { useState } from 'react';
 import {
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-  ScrollView,
-  Alert,
-  SafeAreaView,
+    Alert,
+    SafeAreaView,
+    ScrollView,
+    StyleSheet,
+    Text,
+    TouchableOpacity,
+    View,
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { Ionicons } from '@expo/vector-icons';
 import { WellnessTheme } from '../../utils/wellnessTheme';
 
 interface TestReadinessScreenProps {

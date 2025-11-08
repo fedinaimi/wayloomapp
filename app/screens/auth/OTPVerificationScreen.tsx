@@ -1,16 +1,16 @@
 import { Ionicons } from '@expo/vector-icons';
-import React, { useState, useRef, useEffect } from 'react';
-import { 
-  StyleSheet, 
-  Text, 
-  TextInput,
-  TouchableOpacity, 
-  View, 
-  ScrollView,
-  AccessibilityInfo,
-  Alert,
-  KeyboardAvoidingView,
-  Platform
+import React, { useEffect, useRef, useState } from 'react';
+import {
+    AccessibilityInfo,
+    Alert,
+    KeyboardAvoidingView,
+    Platform,
+    ScrollView,
+    StyleSheet,
+    Text,
+    TextInput,
+    TouchableOpacity,
+    View
 } from 'react-native';
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 import { WellnessTheme } from '../../utils/wellnessTheme';

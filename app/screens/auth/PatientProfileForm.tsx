@@ -1,21 +1,20 @@
-import React, { useState, useRef } from 'react';
+import { Ionicons } from '@expo/vector-icons';
+import React, { useRef, useState } from 'react';
 import {
-  StyleSheet,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  View,
-  ScrollView,
-  Alert,
-  KeyboardAvoidingView,
-  Platform,
-  ActivityIndicator,
-  Modal,
-  FlatList,
-  Animated,
+    ActivityIndicator,
+    Alert,
+    FlatList,
+    KeyboardAvoidingView,
+    Modal,
+    Platform,
+    ScrollView,
+    StyleSheet,
+    Text,
+    TextInput,
+    TouchableOpacity,
+    View
 } from 'react-native';
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
-import { Ionicons } from '@expo/vector-icons';
 import { WellnessTheme } from '../../utils/wellnessTheme';
 
 // Predefined Lists

@@ -5,13 +5,13 @@ import { WellnessTheme } from '../utils/wellnessTheme';
 
 
 import {
-  CaregiverBasicsScreen,
-  OTPVerificationScreen,
-  PatientProfileForm,
-  TestReadinessScreen,
-  PatientConnectScreen,
-  PhoneVerificationScreen,
-  WelcomeScreen
+    CaregiverBasicsScreen,
+    OTPVerificationScreen,
+    PatientConnectScreen,
+    PatientProfileForm,
+    PhoneVerificationScreen,
+    TestReadinessScreen,
+    WelcomeScreen
 } from '../screens/auth';
 
 // Main tab navigator
